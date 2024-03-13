@@ -21,8 +21,9 @@ function formPassword() {
 }
 
 function createPassword() {
-    var characterAmount = prompt("How many characters would you like in your password? 8-128");
+  var characterAmount = prompt("How many characters would you like in your password? 8-128");
   var gotIt = "";
+  createPrompt();
   if (isNaN(characterAmount)) {
     console.log("Numbers only!");
   } else if (characterAmount < 8 || characterAmount > 128) {
@@ -32,43 +33,37 @@ function createPassword() {
   for (let i = 0; i < allInOne.length; i++) {
     var format = Math.floor(Math.random() * allInOne.length);
     gotIt += allInOne[format];
-  }
-  createPrompt();
+  }  
   return gotIt.slice(0, characterAmount);
 }
 
 function createPrompt() {
-  var upper = prompt("Wouold you like to use uppercase characters? yes or no");
-  var lower = prompt("Would you like lowercase characters? yes or no");
-  var num = prompt("Would you like numbers? yes or no");
-  var special = prompt("Would you like special characters? yes or no");
+  var UpCase = prompt("Wouold you like to use uppercase characters? y/n");
+  var lowCase = prompt("Would you like lowercase characters? y/n");
+  var digCharacter = prompt("Would you like numbers? yes/no");
+  var symCharacter = prompt("Would you like special characters? y/n");
 
-  if (upper === "yes") {
-    selectedList = uppercaseList.concat(selectedList);
+  if (UpCase === "yes") {
+    allInOne = capitolCase.concat(allInOne);
   } else {
     console.log("Input Error!");
   }
-  if (lower === "yes") {
-    selectedList = alphList.concat(selectedList);
+  if (lowCase === "yes") {
+    allInOne = lowerCase.concat(allInOne);
   } else {
     console.log("Input Error!");
   }
-  if (num === "yes") {
-    selectedList = numList.concat(selectedList);
+  if (digCharacter === "yes") {
+    allInOne = digits.concat(allInOne);
   } else {
     console.log("Input Error!");
   }
-  if (special === "yes") {
-    selectedList = specialList.concat(selectedList);
+  if (symCharacter === "yes") {
+    allInOne = specialsymbols.concat(allInOne);
   } else {
     console.log("Input Error!");
   }
 }
 
 // Add event listener to generate button
-document.getElementById("generate").addEventListener("click", function () {
-  document.getElementById("password").value = formPassword();
-  //.value instead of .innertext
-
-  console.log(document.getElementById("password").innertext = formPassword())
-})
+generateBtn.addEventListener("click", formPassword);
